@@ -1,0 +1,24 @@
+{
+  "name": "hopjs-workflow",
+  "version": "0.1.0",
+  "description": "Workflow engine for Hop.JS",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "colors": "~0.6.2",
+    "hopjs-remote": "~0.0.30",
+    "request": "~2.34.0"
+  },
+  "devDependencies": {
+    "hopjs": "~0.0.40",
+    "express": "~3.5.1"
+  },
+  "scripts": {
+    "test": "(cd test && node ./service.js > /dev/null &) && sleep 1 && node test/test.js",
+    "cover": "(cd test && node ./service.js > /dev/null &) && sleep 1 && istanbul cover test/test.js" 
+  },
+  "author": "",
+  "license": "MIT"
+}

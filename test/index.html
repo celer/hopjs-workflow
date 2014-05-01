@@ -1,0 +1,23 @@
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/api/hopjs.js"></script>
+<script src="/build/hopjs-wf.js"></script>
+<script>
+  var scripts = {};
+  runScript=function(name,onComplete){
+    onComplete=onComplete||function(){};
+    var context = new Workflow.Context();
+    var script = scripts[name];
+    if(!script)
+      throw new Error("Invalid script");
+    context.saveValue("url",document.location.toString());
+    context.run(script,onComplete);
+  }
+  defineScript=function(name,onScript){
+    var test = new Workflow.Script(name);
+    onScript(test);
+    scripts[name]=test;
+    runScript(name);
+    return test;
+  }
+</script>
+<script src="test.js"></script>

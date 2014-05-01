@@ -12,8 +12,13 @@ app.configure(function(){
   app.use(express.urlencoded());
   app.use(express.json());
   app.use(express.methodOverride());
+  app.use('/', express.static(__dirname));
   app.use(app.router);
 });
+
+app.get("/",function(req,res){
+  res.redirect("/index.html");
+}); 
 
 CounterService={};
 

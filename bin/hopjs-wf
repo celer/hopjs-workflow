@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+
+var path = require('path');
+Workflow = require('../index');
+
+var fs = require('fs');
+var optimist=require('optimist');
+
+var args = optimist.argv;
+
+console.log(args);
+
+var scripts = {};
+
+defineScript=function(name,onScript){
+  var test = new Workflow.Script(name);
+  onScript(test);
+  scripts[name]=test;
+  return test;
+}
+
+runScript=function(name,onComplete){
+  onComplete=onComplete||function(){};
+  var context = new Workflow.Context();
+  var script = scripts[name];
+  if(!script)
+    throw new Error("Invalid script");
+
+  for(var i in args){
+    context.saveValue(i,args[i]);
+  }
+ 
+  context.run(script,onComplete);
+}
+
+
+ 
+require(path.resolve(args._[0]));
+
+if(Object.keys(scripts).length==1){
+  runScript(Object.keys(scripts)[0],function(err,res){
+    if(res.fail>0) 
+      process.exit(1);
+    else process.exit(0);
+  });
+} else {
+  runScript(args._[1],function(err,res){
+    if(res.fail>0) 
+      process.exit(1);
+    else process.exit(0);
+  });
+}
+
+  
+

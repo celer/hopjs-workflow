@@ -9,15 +9,27 @@
   "dependencies": {
     "colors": "~0.6.2",
     "hopjs-remote": "~0.0.30",
-    "request": "~2.34.0"
+    "request": "~2.34.0",
+    "optimist": "^0.6.1"
   },
   "devDependencies": {
     "hopjs": "~0.0.40",
-    "express": "~3.5.1"
+    "express": "~3.5.1",
+    "grunt": "^0.4.4",
+    "grunt-contrib-uglify": "^0.4.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "jshint-stylish": "^0.2.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-lintspaces": "^0.5.1"
   },
   "scripts": {
-    "test": "(cd test && node ./service.js > /dev/null &) && sleep 1 && node test/test.js",
-    "cover": "(cd test && node ./service.js > /dev/null &) && sleep 1 && istanbul cover test/test.js" 
+    "test":"(cd test && node ./service.js > /dev/null &) && sleep 1 && bin/hopjs-wf test/test.js",
+    "cover":"(cd test && node ./service.js > /dev/null &) && sleep 1 && istanbul cover bin/hopjs-wf -- test/test.js",
+    "build":"grunt"
+  },
+  "bin": {
+    "hopjs-wf": "bin/hopjs-wf"
   },
   "author": "",
   "license": "MIT"

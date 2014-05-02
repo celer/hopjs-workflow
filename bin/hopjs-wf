@@ -8,8 +8,6 @@ var optimist=require('optimist');
 
 var args = optimist.argv;
 
-console.log(args);
-
 var scripts = {};
 
 defineScript=function(name,onScript){
@@ -33,23 +31,48 @@ runScript=function(name,onComplete){
   context.run(script,onComplete);
 }
 
+var inputFile = args._[0];
 
- 
-require(path.resolve(args._[0]));
+if(/\.js$/.test(inputFile)){
+  require(path.resolve(inputFile));
 
-if(Object.keys(scripts).length==1){
-  runScript(Object.keys(scripts)[0],function(err,res){
-    if(res.fail>0) 
-      process.exit(1);
-    else process.exit(0);
-  });
-} else {
-  runScript(args._[1],function(err,res){
-    if(res.fail>0) 
-      process.exit(1);
-    else process.exit(0);
-  });
-}
+  if(Object.keys(scripts).length==1){
+    if(args.toJSON){
+     console.log(JSON.stringify(scripts[Object.keys(scripts)[0]].toJSON()));
+    } else {
+      runScript(Object.keys(scripts)[0],function(err,res){
+        if(res.fail>0) 
+          process.exit(1);
+        else process.exit(0);
+      });
+    }
+  } else {
+    runScript(args._[1],function(err,res){
+      if(res.fail>0) 
+        process.exit(1);
+      else process.exit(0);
+    });
+  }
+} else if(/\.json$/.test(inputFile)){
+  console.log("Loading JSON");
+  var fs = require('fs');
+  try {
+    var data = JSON.parse(fs.readFileSync(path.resolve(inputFile)).toString());
+    console.log(data);
+
+    var script = new Workflow.Script(data);
+    var context = new Workflow.Context();
+    for(var i in args){
+      context.saveValue(i,args[i]);
+    }
+   
+    context.run(script,function(){});
+
+  } catch(e){
+    console.log(e);
+  }
+} 
+
 
   
 

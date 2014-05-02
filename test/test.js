@@ -89,7 +89,7 @@ defineScript("BasicTest",function(test){
 
   test.delete("#{kittenHref.href}").errorIsNull();
 
-  test.get("#{kittenHref.href}").errorContains("Not found");
+  test.get("#{kittenHref.href}").errorContains("Not found").hasStatusCode(404).headerContains("Connection","keep-alive");
 
   test.do("TestService.exit");
 

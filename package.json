@@ -1,6 +1,6 @@
 {
   "name": "hopjs-workflow",
-  "version": "1.0.0",
+  "version": "1.0.0-beta1",
   "description": "Workflow engine for Hop.JS",
   "main": "index.js",
   "directories": {

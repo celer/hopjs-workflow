@@ -1,4 +1,5 @@
 var Workflow = require('./lib/core');
+require('./lib/chaos');
 require('./lib/script');
 require('./lib/task');
 require('./lib/context');

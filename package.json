@@ -1,19 +1,19 @@
 {
   "name": "hopjs-workflow",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Workflow engine for Hop.JS",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "colors": "~0.6.2",
-    "hopjs-remote": "~0.0.30",
+    "hopjs-remote": "~1.0.0",
     "request": "~2.34.0",
-    "optimist": "^0.6.1"
+    "optimist": "^0.6.1",
+    "colors": "^0.6.2"
   },
   "devDependencies": {
-    "hopjs": "~0.0.40",
+    "hopjs": "~1.0.0",
     "express": "~3.5.1",
     "grunt": "^0.4.4",
     "grunt-contrib-uglify": "^0.4.0",
@@ -24,13 +24,16 @@
     "grunt-lintspaces": "^0.5.1"
   },
   "scripts": {
-    "test":"(cd test && node ./service.js > /dev/null &) && sleep 1 && bin/hopjs-wf test/test.js",
-    "cover":"(cd test && node ./service.js > /dev/null &) && sleep 1 && istanbul cover bin/hopjs-wf -- test/test.js",
-    "build":"grunt"
+    "test": "grunt test && (cd test && node ./service.js > /dev/null &) && sleep 1 && bin/hopjs-wf test/test.js",
+    "cover": "(cd test && node ./service.js > /dev/null &) && sleep 1 && istanbul cover bin/hopjs-wf -- test/test.js",
+    "build": "grunt"
   },
   "bin": {
     "hopjs-wf": "bin/hopjs-wf"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/celer/hopjs.git"
+  },
   "license": "MIT"
 }

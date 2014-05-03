@@ -18,7 +18,7 @@ module.exports = function(grunt){
         seperator: ';',
       },
       dist: { 
-        src:['lib/core.js','lib/script.js','lib/task.js','lib/context.js','lib/tests.js','lib/browser.js'],
+        src:['lib/chaos.js', 'lib/core.js','lib/script.js','lib/task.js','lib/context.js','lib/tests.js','lib/browser.js'],
         dest: 'build/hopjs-wf.js',
       }
     },
@@ -55,6 +55,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-
+  
+  grunt.registerTask('test',['jshint','lintspaces']);
   grunt.registerTask('default',['jshint','concat','uglify']);
 };

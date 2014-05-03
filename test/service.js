@@ -1,6 +1,6 @@
 // Require / load some of the packages we need for this RESTFul service
 var express = require('express');
-var Hop = require('hopjs');
+Hop = require('hopjs');
 
 //Create a new web app
 var app = express();
@@ -12,6 +12,7 @@ app.configure(function(){
   app.use(express.urlencoded());
   app.use(express.json());
   app.use(express.methodOverride());
+  app.use(Hop.expressAPI("/api"));
   app.use('/', express.static(__dirname));
   app.use(app.router);
 });
@@ -105,9 +106,8 @@ Hop.defineClass("MockService",MockService,function(api){
   api.get("delay","/mock/delay/:delay");
 });
 
-
-//Hang our restful service off of the /api/ path
-Hop.apiHook("/api/",app);
+require('./test');
+require('./simpletest');
 
 //Start our webservice
 app.listen(3000);

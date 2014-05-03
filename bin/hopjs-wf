@@ -6,16 +6,28 @@ Workflow = require('../index');
 var fs = require('fs');
 var optimist=require('optimist');
 
+optimist.describe("noColors","Don't use colors");
+
 var args = optimist.argv;
+
+if(args.noColors){
+
+} else {
+  Workflow.useColors=true;
+}
+
 
 var scripts = {};
 
-defineScript=function(name,onScript){
+Hop={};
+
+Hop.defineScript=function(name,onScript){
   var test = new Workflow.Script(name);
   onScript(test);
   scripts[name]=test;
   return test;
 }
+Hop.defineTestCase=Hop.defineScript;
 
 runScript=function(name,onComplete){
   onComplete=onComplete||function(){};

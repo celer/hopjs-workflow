@@ -1,4 +1,4 @@
-defineScript("BasicTest",function(test){
+Hop.defineTestCase("BasicTest",function(test){
 
   test.default("url","http://localhost:3000/");
   test.demand("url","URL of the service");
@@ -90,7 +90,14 @@ defineScript("BasicTest",function(test){
   test.delete("#{kittenHref.href}").errorIsNull();
 
   test.get("#{kittenHref.href}").errorContains("Not found").hasStatusCode(404).headerContains("Connection","keep-alive");
+ 
+  test.times(100,function(test){ 
+    test.do("MockService.now").with({ value: { a: { b: 6}, k:"Hello World"}}).chaos().noError();
+  });
+  
+  test.do("MockService.mirrorInput").with("FOO",{ value:{}}, { value: { a: { b: 6}}}).outputContains({ a: { b: 6 }});
 
   test.do("TestService.exit");
+  
 
 });
